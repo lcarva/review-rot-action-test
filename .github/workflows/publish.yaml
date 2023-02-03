@@ -17,6 +17,8 @@ jobs:
 
       - name: Run review-rot
         uses: lcarva/review-rot@main
+        with:
+          config: ./config.yaml
 
       # TODO: Filter results
       # TODO: Publish GitHub page (checkout review-rot repo first?)
