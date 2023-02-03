@@ -13,12 +13,14 @@ jobs:
       - name: Check out repo
         uses: actions/checkout@v3
 
-      # TODO: Run env subst script
+      - run: |-
+          set -euo pipefail
+          < ./config.yaml envsubst > config-with-token.yaml
 
       - name: Run review-rot
         uses: lcarva/review-rot@main
         with:
-          config: ./config.yaml
+          config: config-with-token.yaml
 
       # TODO: Filter results
       # TODO: Publish GitHub page (checkout review-rot repo first?)
