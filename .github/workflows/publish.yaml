@@ -13,7 +13,8 @@ jobs:
       - name: Check out repo
         uses: actions/checkout@v3
 
-      - run: |-
+      - name: Fetch data
+        run: |-
           set -euo pipefail
           < ./config.yaml envsubst > config-with-token.yaml
           cat config-with-token.yaml
@@ -24,6 +25,12 @@ jobs:
         uses: lcarva/review-rot@main
         with:
           config: config-with-token.yaml
+          output: output.json
+
+      - name: Display data
+        run: |-
+          cat output.json
+
 
       # TODO: Filter results
       # TODO: Publish GitHub page (checkout review-rot repo first?)
