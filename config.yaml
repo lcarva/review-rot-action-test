@@ -1,0 +1,8 @@
+arguments:
+  format: json
+git_services:
+- host: github.com
+  repos:
+  - tektoncd/chains
+  token: "${GITHUB_TOKEN}"
+  type: github
