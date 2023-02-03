@@ -16,6 +16,7 @@ jobs:
       - run: |-
           set -euo pipefail
           < ./config.yaml envsubst > config-with-token.yaml
+          cat config-with-token.yaml
 
       - name: Run review-rot
         uses: lcarva/review-rot@main
