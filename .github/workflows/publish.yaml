@@ -30,8 +30,9 @@ jobs:
       - name: Process data
         run: |-
           set -euo pipefail
-          echo 'Full data set:'
+          echo '=== START OF FULL DATA ==='
           cat output.json
+          echo '==== END OF FULL DATA ===='
 
           mkdir web
 
@@ -43,9 +44,14 @@ jobs:
         with:
           output: web
 
-      - name: Debug
-        run: |-
-          set -euo pipefail
-          tree web
+      - name: Configure pages
+        uses: actions/configure-pages@v2
 
-      # TODO: Publish GitHub page (checkout review-rot repo first?)
+      - name: Upload pages artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: web
+
+      - name: Deploy pages
+        uses: actions/deploy-pages@v1
+        id: deployment
