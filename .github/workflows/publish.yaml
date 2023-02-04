@@ -22,15 +22,30 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
 
       - name: Run review-rot
-        uses: lcarva/review-rot@main
+        uses: lcarva/review-rot-action/run@main
         with:
           config: config-with-token.yaml
           output: output.json
 
-      - name: Display data
+      - name: Process data
         run: |-
+          set -euo pipefail
+          echo 'Full data set:'
           cat output.json
 
+          mkdir web
 
-      # TODO: Filter results
+          # TODO: filter data
+          cp output.json web/data.json
+
+      - name: Fetch review-rot web
+        uses: lcarva/review-rot-action/web@main
+        with:
+          output: web
+
+      - name: Debug
+        run: |-
+          set -euo pipefail
+          tree web
+
       # TODO: Publish GitHub page (checkout review-rot repo first?)
